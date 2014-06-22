@@ -13,3 +13,6 @@ src/
 .DS_Store
 pivotal-samples/
 retail_demo/
+
+/madlib/
+/plr/
