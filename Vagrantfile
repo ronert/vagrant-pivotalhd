@@ -64,6 +64,9 @@ DEPLOY_PHD_CLUSTER = TRUE
 PLR = TRUE
 MADLIB = TRUE
 
+# Install Spark if set to TRUE
+SPARK = TRUE
+
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Compute the total number of nodes in the cluster
@@ -159,6 +162,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    if (MADLIB)
      pcc.vm.provision "shell" do |s|
        s.path = "madlib.sh"
+     end
+   end
+
+   # Install Spark
+   if (SPARK)
+     pcc.vm.provision "shell" do |s|
+       s.path = "spark.sh"
      end
    end
 
