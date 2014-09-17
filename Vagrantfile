@@ -64,6 +64,9 @@ DEPLOY_PHD_CLUSTER = TRUE
 PLR = TRUE
 MADLIB = TRUE
 
+# Install H2O if set to TRUE
+H2O = TRUE
+
 # Install Spark if set to TRUE
 SPARK = TRUE
 
@@ -126,6 +129,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    pcc.vm.hostname = "pcc.localdomain"
    pcc.vm.network :private_network, ip: "10.211.55.100"
    pcc.vm.network :forwarded_port, guest: 5443, host: 5443
+   pcc.vm.network :forwarded_port, guest: 54321, host: 54321
 
    # Initialization common for all nodes
    pcc.vm.provision "shell" do |s|
@@ -169,6 +173,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    if (SPARK)
      pcc.vm.provision "shell" do |s|
        s.path = "spark.sh"
+     end
+   end
+
+   # Install Spark
+   if (H2O)
+     pcc.vm.provision "shell" do |s|
+       s.path = "h2o.sh"
      end
    end
 
